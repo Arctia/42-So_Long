@@ -16,16 +16,17 @@ INCS = so_long.h
 
 SRCS = free_memory.c game.c game_draw.c key_bindings.c \
 map_draw.c map_errors.c map_field.c map_utils.c player.c \
-player_draw.c so_long.c utils_000.c
+player_draw.c so_long.c utils_000.c box.c
 
+OS := $(shell uname)
 
-# OS := $(shell uname)
-
-# ifeq ($(OS), Linux)
-MY_OS = 1
-# else
-# 	MY_OS = 0
-# endif
+ifeq ($(OS), Linux)
+	MY_OS = 1
+	FMLX = -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -lXext -lX11 -lm -lbsd
+else
+	MY_OS = 0
+	FMLX = -lmlx -framework OpenGL -framework AppKit
+endif
 
 OBJS = $(addprefix $(DIR_OBJ)/, $(SRCS:c=o))
 INC_DIRS = -I./ $(addprefix -I, $(SUBDIRS))
@@ -33,7 +34,7 @@ INC_DIRS = -I./ $(addprefix -I, $(SUBDIRS))
 ################################################################################
 # - Including libs
 
-LIBFT = libft/libft.a minilibx/libmlx_Linux.a
+LIBFT = libft/libft.a
 
 LIBFT_DEPS  = libft/libft.h libft/ft_atoi.c libft/ft_lstiter.c \
 libft/ft_strcmp.c libft/ft_bzero.c libft/ft_lstlast.c \
@@ -61,6 +62,8 @@ libft/ft_printf/printers/print_y.c libft/ft_printf/printers/printers.c \
 libft/get_next_line/get_next_line.c \
 libft/get_next_line/get_next_line_utils.c
 
+MLX = minilibx/libmlx.a
+
 ################################################################################
 ################################################################################
 ################################################################################
@@ -68,15 +71,10 @@ libft/get_next_line/get_next_line_utils.c
 ################################################################################
 # - Rules
 
-all: $(LIBFT) $(NAME)
+all: $(LIBFT) $(MLX) $(NAME)
 
-# ifeq ($(OS), Linux)
 $(NAME): $(LIBS) $(OBJS) $(INCS)
-	$(CC) $(FLAGS) $(OBJS) -D MY_OS=$(MY_OS) -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -lXext -lX11 -lm -lbsd $(LIBFT) -o $(NAME)
-# else
-# 	$(NAME): $(LIBS) $(OBJS) $(INCS)
-# 		$(CC) $(FLAGS) $(OBJS) -D MY_OS=$(MY_OS) -lmlx -framework OpenGL -framework AppKit $(LIBFT) -o $(NAME)
-# endif
+	$(CC) $(FLAGS) $(OBJS) -D MY_OS=$(MY_OS) $(FMLX) $(LIBFT) $(MLX) -o $(NAME)
 
 $(DIR_OBJ)/%.o: %.c 
 	mkdir -p $(@D)
@@ -88,6 +86,9 @@ $(DIR_OBJ)/%.o: %.c
 $(LIBFT): $(LIBFT_DEPS)
 	@make -C libft
 
+$(MLX):
+	@make -C minilibx
+
 ################################################################################
 # - Default rules
 
@@ -95,11 +96,13 @@ allwc: all clean
 
 clean:
 	@make clean -C libft
+	@make clean -C minilibx
 	@rm -rf obj
 	@echo Clean $(NAME) objects
 
 fclean:
 	@make fclean -C libft
+	@make clean -C minilibx
 	@rm -rf obj
 	@rm -rf $(NAME)
 	@echo Clean $(NAME) objects and ./$(NAME)

@@ -6,7 +6,7 @@
 /*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:30:32 by vgavioli          #+#    #+#             */
-/*   Updated: 2023/05/16 23:02:05 by vgavioli         ###   ########.fr       */
+/*   Updated: 2023/05/17 10:46:33 by vgavioli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	game_init(char **map, t_map *field)
 	if (MY_OS == 1)
 	{
 		mlx_hook(game.mlx_win, KeyPress, KeyPressMask, linux_key_hook, &game);
-		mlx_hook(game.mlx_win, 17L, 0L, exit_game, &game);
+		mlx_hook(game.mlx_win, 17L, 0, exit_game, &game);
 	}
 	else
 	{

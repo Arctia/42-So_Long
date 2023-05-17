@@ -6,7 +6,7 @@
 /*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 16:07:45 by vgavioli          #+#    #+#             */
-/*   Updated: 2022/10/17 15:41:30 by vgavioli         ###   ########.fr       */
+/*   Updated: 2023/05/17 10:53:41 by vgavioli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,44 +50,6 @@ void	death(t_gm *gm)
 	gm->death = 1;
 }
 
-int	is_not_obstacle(char obj)
-{
-	if (obj != '0')
-		return 0;
-	return 1;
-}
-
-int		is_box_near_obstacle(t_gm *gm, int x, int y, char dir)
-{
-	if (gm->map[y][x] != 'B')
-		return 0;
-	if (dir == 'u')
-		y--;
-	else if (dir == 'd')
-		y++;
-	else if (dir == 'r')
-		x++;
-	else if (dir == 'l')
-		x--;
-	if (is_not_obstacle(gm->map[y][x]))
-		return (0);
-	return (1);
-}
-
-void	move_box(t_gm *gm, int x, int y, char dir)
-{
-	gm->map[y][x] = '0';
-	if (dir == 'u')
-		y--;
-	else if (dir == 'd')
-		y++;
-	else if (dir == 'r')
-		x++;
-	else if (dir == 'l')
-		x--;
-	gm->map[y][x] = 'B';
-}
-
 int	check_position(t_gm *gm, char dir)
 {
 	int	x;
@@ -127,8 +89,6 @@ void	player_move(t_gm *gm, char dir, int rec)
 		gm->p_pos[0]--;
 	set_movement(gm, &gm->hero);
 	if (check_position(gm, dir) && !rec)
-	{
-		//pfn("[INFO	]: You've moved %d times.", ++gm->moves);
-		;
-	}
+		++gm->moves;
+	// pfn("[INFO	]: You've moved %d times.", ++gm->moves);
 }

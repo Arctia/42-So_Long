@@ -6,7 +6,7 @@
 /*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 17:44:48 by vgavioli          #+#    #+#             */
-/*   Updated: 2023/05/16 22:58:51 by vgavioli         ###   ########.fr       */
+/*   Updated: 2023/05/17 10:55:12 by vgavioli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
+# define FRAME_RATE_L 1200
+# define FRAMEP_RAT_L 300
+
 # define FRAME_RATE 16200
-# define FRAMEP_RATE 3000
+# define FRAMEP_RATE 4050
 # define SZ 48
 # define OFFSET 1
 # define WISP_FRAMES 4
@@ -187,5 +190,9 @@ int		exit_game(t_gm *gm);
 
 //free_memory.c
 void	main_free(t_gm *gm);
+
+int		is_box_near_obstacle(t_gm *gm, int x, int y, char dir);
+void	move_box(t_gm *gm, int x, int y, char dir);
+int		is_not_obstacle(char obj);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:50:42 by vgavioli          #+#    #+#             */
-/*   Updated: 2022/06/23 13:12:23 by vgavioli         ###   ########.fr       */
+/*   Updated: 2023/05/17 10:45:08 by vgavioli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	free_images(t_img *i)
 	mlx_destroy_image(i->mlx, i->wall);
 	mlx_destroy_image(i->mlx, i->ground);
 	mlx_destroy_image(i->mlx, i->hero);
+	mlx_destroy_image(i->mlx, i->box);
 	mlx_destroy_image(i->mlx, i->wisp[0]);
 	mlx_destroy_image(i->mlx, i->wisp[1]);
 	mlx_destroy_image(i->mlx, i->wisp[2]);
