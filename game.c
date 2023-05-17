@@ -6,7 +6,7 @@
 /*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:30:32 by vgavioli          #+#    #+#             */
-/*   Updated: 2022/06/23 16:00:30 by vgavioli         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:02:05 by vgavioli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,19 @@ void	game_init(char **map, t_map *field)
 	game.mlx = mlx_init();
 	game.mlx_win = mlx_new_window(game.mlx, SZ * w, SZ * h, "Last Slime");
 	init_game_struct(&game);
-	mlx_key_hook(game.mlx_win, key_hook, &game);
+	//pfn("MY_OS: %d", MY_OS);
+	if (MY_OS == 1)
+	{
+		mlx_hook(game.mlx_win, KeyPress, KeyPressMask, linux_key_hook, &game);
+		mlx_hook(game.mlx_win, 17L, 0L, exit_game, &game);
+	}
+	else
+	{
+		mlx_key_hook(game.mlx_win, key_hook, &game);
+		mlx_hook(game.mlx_win, 17, 0, exit_game, &game);
+	}
 	mlx_loop_hook(game.mlx, update, &game);
 	draw_game_map(&game);
 	mlx_do_key_autorepeaton(game.mlx);
-	mlx_hook(game.mlx_win, 17, 0, exit_game, &game);
 	mlx_loop(game.mlx);
 }

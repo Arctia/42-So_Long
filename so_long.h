@@ -6,7 +6,7 @@
 /*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 17:44:48 by vgavioli          #+#    #+#             */
-/*   Updated: 2022/06/27 09:16:52 by vgavioli         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:58:51 by vgavioli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@
 # include "./libft/libft.h"
 # include "./libft/ft_printf/ft_printf.h"
 # include "./libft/get_next_line/get_next_line.h"
-# include <mlx.h>
+# include <mlx.h>/*"minilibx/mlx.h"*/
+# include <X11/X.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
 
-# define FRAME_RATE 1200
-# define FRAMEP_RATE 300
+# define FRAME_RATE 16200
+# define FRAMEP_RATE 3000
 # define SZ 48
 # define OFFSET 1
 # define WISP_FRAMES 4
@@ -42,6 +43,17 @@
 # define KEY_A 0
 
 # define KEY_ESC 53
+
+# define ARR_UP_L 65362//126
+# define KEY_W_L 119//13
+# define ARR_RIGHT_L 65363//124
+# define KEY_D_L 100//2
+# define ARR_DOWN_L 65364//125
+# define KEY_S_L 115//1
+# define ARR_LEFT_L 65361//123
+# define KEY_A_L 97//0
+
+# define KEY_ESC_L 65307//53
 
 typedef struct s_map
 {
@@ -158,6 +170,7 @@ int		check_win(t_gm *gm, char dir);
 void	death(t_gm *gm);
 
 //key_bindings.c
+int		linux_key_hook(int key, t_gm *gm);
 int		key_hook(int key, t_gm *gm);
 
 //game_draw.c

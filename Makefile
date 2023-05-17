@@ -4,7 +4,7 @@
 NAME = so_long
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror 
 
 ################################################################################
 # - Taking all *.c and *.h that are needed to compile actual source (not libs)
@@ -18,13 +18,14 @@ SRCS = free_memory.c game.c game_draw.c key_bindings.c \
 map_draw.c map_errors.c map_field.c map_utils.c player.c \
 player_draw.c so_long.c utils_000.c
 
+MY_OS = 1
 OBJS = $(addprefix $(DIR_OBJ)/, $(SRCS:c=o))
 INC_DIRS = -I./ $(addprefix -I, $(SUBDIRS))
 
 ################################################################################
 # - Including libs
 
-LIBFT = libft/libft.a
+LIBFT = libft/libft.a minilibx/libmlx_Linux.a
 
 LIBFT_DEPS  = libft/libft.h libft/ft_atoi.c libft/ft_lstiter.c \
 libft/ft_strcmp.c libft/ft_bzero.c libft/ft_lstlast.c \
@@ -62,11 +63,12 @@ libft/get_next_line/get_next_line_utils.c
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(LIBS) $(OBJS) $(INCS)
-	$(CC) $(FLAGS) $(OBJS) -lmlx -framework OpenGL -framework AppKit $(LIBFT) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) -D MY_OS=$(MY_OS) -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -lXext -lX11 -lm $(LIBFT) -o $(NAME)
+	#-lmlx -framework OpenGL -framework AppKit $(LIBFT) -o $(NAME)
 
 $(DIR_OBJ)/%.o: %.c 
 	mkdir -p $(@D)
-	$(CC) -o $@ $(FLAGS) -c $< $(INC_DIRS)
+	$(CC) -D MY_OS=$(MY_OS) -o $@ $(FLAGS) -c $< $(INC_DIRS)
 
 ################################################################################
 # - Compiling Libs
