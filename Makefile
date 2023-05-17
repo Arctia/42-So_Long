@@ -19,12 +19,13 @@ map_draw.c map_errors.c map_field.c map_utils.c player.c \
 player_draw.c so_long.c utils_000.c
 
 
-OS := $(shell uname)
+# OS := $(shell uname)
 
-MY_OS = 0
-ifeq ($(OS), Linux)
-	MY_OS = 1
-endif
+# ifeq ($(OS), Linux)
+MY_OS = 1
+# else
+# 	MY_OS = 0
+# endif
 
 OBJS = $(addprefix $(DIR_OBJ)/, $(SRCS:c=o))
 INC_DIRS = -I./ $(addprefix -I, $(SUBDIRS))
@@ -69,13 +70,13 @@ libft/get_next_line/get_next_line_utils.c
 
 all: $(LIBFT) $(NAME)
 
-ifeq ($(OS), Linux)
-	$(NAME): $(LIBS) $(OBJS) $(INCS)
-		$(CC) $(FLAGS) $(OBJS) -D MY_OS=$(MY_OS) -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -lXext -lX11 -lm $(LIBFT) -o $(NAME)
-else
-	$(NAME): $(LIBS) $(OBJS) $(INCS)
-		$(CC) $(FLAGS) $(OBJS) -D MY_OS=$(MY_OS) -lmlx -framework OpenGL -framework AppKit $(LIBFT) -o $(NAME)
-endif
+# ifeq ($(OS), Linux)
+$(NAME): $(LIBS) $(OBJS) $(INCS)
+	$(CC) $(FLAGS) $(OBJS) -D MY_OS=$(MY_OS) -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -lXext -lX11 -lm -lbsd $(LIBFT) -o $(NAME)
+# else
+# 	$(NAME): $(LIBS) $(OBJS) $(INCS)
+# 		$(CC) $(FLAGS) $(OBJS) -D MY_OS=$(MY_OS) -lmlx -framework OpenGL -framework AppKit $(LIBFT) -o $(NAME)
+# endif
 
 $(DIR_OBJ)/%.o: %.c 
 	mkdir -p $(@D)

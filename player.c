@@ -50,6 +50,44 @@ void	death(t_gm *gm)
 	gm->death = 1;
 }
 
+int	is_not_obstacle(char obj)
+{
+	if (obj != '0')
+		return 0;
+	return 1;
+}
+
+int		is_box_near_obstacle(t_gm *gm, int x, int y, char dir)
+{
+	if (gm->map[y][x] != 'B')
+		return 0;
+	if (dir == 'u')
+		y--;
+	else if (dir == 'd')
+		y++;
+	else if (dir == 'r')
+		x++;
+	else if (dir == 'l')
+		x--;
+	if (is_not_obstacle(gm->map[y][x]))
+		return (0);
+	return (1);
+}
+
+void	move_box(t_gm *gm, int x, int y, char dir)
+{
+	gm->map[y][x] = '0';
+	if (dir == 'u')
+		y--;
+	else if (dir == 'd')
+		y++;
+	else if (dir == 'r')
+		x++;
+	else if (dir == 'l')
+		x--;
+	gm->map[y][x] = 'B';
+}
+
 int	check_position(t_gm *gm, char dir)
 {
 	int	x;
@@ -57,7 +95,7 @@ int	check_position(t_gm *gm, char dir)
 
 	x = gm->p_pos[0];
 	y = gm->p_pos[1];
-	if (gm->map[y][x] == '1')
+	if (gm->map[y][x] == '1' || is_box_near_obstacle(gm, x, y, dir))
 		return (move_back(gm, dir));
 	else if (gm->map[y][x] == 'C' && !gm->hero.moving)
 	{
@@ -65,7 +103,10 @@ int	check_position(t_gm *gm, char dir)
 		gm->score++;
 		if (gm->field.collect == gm->score)
 			gm->win = 1;
+
 	}
+	else if (gm->map[y][x] == 'B')
+		move_box(gm, x, y, dir);
 	else if (gm->map[y][x] == 'E' && !gm->hero.moving)
 		return (check_win(gm, dir));
 	else if (gm->map[y][x] == 'S' && !gm->hero.moving)
@@ -86,5 +127,8 @@ void	player_move(t_gm *gm, char dir, int rec)
 		gm->p_pos[0]--;
 	set_movement(gm, &gm->hero);
 	if (check_position(gm, dir) && !rec)
-		pfn("[INFO	]: You've moved %d times.", ++gm->moves);
+	{
+		//pfn("[INFO	]: You've moved %d times.", ++gm->moves);
+		;
+	}
 }

@@ -24,7 +24,7 @@ void	init_images(t_img *i)
 	i->w = SZ;
 	i->h = SZ;
 	i->wall = mlx_xpm_file_to_image(i->mlx, "res/wall1.xpm", &i->w, &i->h);
-	i->box = mlx_xpm_file_to_image(mlx, "res/box.xpm", &i->w, &i->h),
+	i->box = mlx_xpm_file_to_image(i->mlx, "res/box.xpm", &i->w, &i->h),
 	i->hero = mlx_xpm_file_to_image(i->mlx, "res/hero.xpm", &i->w, &i->h);
 	i->void_ = mlx_xpm_file_to_image(i->mlx, "res/void.xpm", &i->w, &i->h);
 	i->ground = mlx_xpm_file_to_image(i->mlx, "res/ground1.xpm", &i->w, &i->h);
@@ -64,7 +64,7 @@ void	draw_all(t_gm *gm, int d[5], char id)
 {
 	if (id == '1')
 		draw_image(*gm, d, gm->images.wall);
-	else if (id == '0' || id == 'P' || id == 'S' || id == 'C')
+	else if (id == '0' || id == 'P' || id == 'S' || id == 'C' || id == 'B')
 		draw_image(*gm, d, gm->images.ground);
 	if (id == 'P' && gm->p_pos[0] == -1)
 	{

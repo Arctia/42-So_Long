@@ -6,7 +6,7 @@ NAME 		= libft.a
 BUFFER 		= 42
 BSIZE 		= -D BUFFER_SIZE=$(BUFFER)
 CC 			= gcc
-FLAGS 		= #-Wall -Wextra -Werror
+FLAGS 		= -Wall -Wextra -Werror
 
 ################################################################################
 # - Taking all *.c and *.h that are needed to compile actual source (not libs)
@@ -14,7 +14,7 @@ FLAGS 		= #-Wall -Wextra -Werror
 SUBDIRS 	= ft_printf ft_printf/printers get_next_line
 DIR_OBJ 	= ./obj
 OBJS 		= $(SRCS:.c=.o)
-INC_DIRS 	= -I./ $(addprefix -I, $(SUBDIRS))	
+INC_DIRS 	= -I./ $(addprefix -I, $(SUBDIRS))
 
 INCS 		= libft.h ft_printf.h get_next_line.h
 
@@ -39,7 +39,12 @@ ft_printf/printers/print_p.c ft_printf/printers/print_s.c \
 ft_printf/printers/print_t.c ft_printf/printers/print_u.c \
 ft_printf/printers/print_x.c ft_printf/printers/print_y.c \
 ft_printf/printers/printers.c get_next_line/get_next_line.c \
-get_next_line/get_next_line_utils.c
+get_next_line/get_next_line_utils.c \
+ft_pow.c ft_sqrt.c ft_module.c ft_isspace.c ft_isnotspace.c \
+ft_isquote.c ft_filliarrayto_n.c ft_isredirection.c ft_free_ptr.c \
+ft_arrdup.c ft_print_matrix.c ft_cmtxlen.c \
+ft_move_cptr.c ft_arraylen.c ft_cmtx_utils.c ft_cmtx_utils_2.c \
+ft_iseven.c
 
 ################################################################################
 # - Rules

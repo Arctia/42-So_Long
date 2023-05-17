@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/30 16:02:29 by vgavioli          #+#    #+#             */
-/*   Updated: 2022/10/17 15:17:01 by vgavioli         ###   ########.fr       */
+/*   Created: 2023/03/22 23:16:47 by vgavioli          #+#    #+#             */
+/*   Updated: 2023/03/23 11:10:23 by vgavioli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include "./ft_printf/ft_printf.h"
 # include "./get_next_line/get_next_line.h"
+
+# define DEBUGGING 0
 
 # define TRUE 1
 # define FALSE 0
@@ -76,8 +78,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-void	ft_lstadd_front(t_list **lst, t_list *new);
-void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstadd_front(t_list **lst, t_list *new_element);
+void	ft_lstadd_back(t_list **lst, t_list *new_element);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
@@ -94,5 +96,36 @@ int		ft_strrncmp(const char *s1, const char *s2, int n);
 void	ft_free_cmatrix(char **mtx);
 void	ft_free_imatrix(int **mtx);
 //void	ft_free_array(int *array);
+long	ft_pow(int num, int n);
+int		ft_module(int n);
+int		ft_sqrt(long num);
+int		ft_isspace(int c);
+int		ft_isnotspace(int c);
+char	ft_isquote(char ch);
+char	ft_isredirection(char ch);
+void	ft_filliarrayto_n(int *arr, int val, int n);
+void	ft_free_ptr(void *ptr);
+char	**ft_arrdup(char **arr);
+void	ft_print_matrix(char **mtx);
+size_t	ft_cmtxlen(char **mtx);
+size_t	ft_arrlen(int *array);
+int 	ft_isodd(int n);
+int 	ft_iseven(int n);
+
+// String Ptr Manipulation
+char	**ft_reset_cptr(char **str, int status);
+void	ft_move_n_cptr(char **str, size_t n);
+void	ft_move_cptr(char **str);
+void	ft_init_cptr(char **str);
+
+// Char Matrix Manipulation
+void	ft_cmtx_pop(char **mtx);
+void	ft_cmtx_shift(char **mtx);
+void	ft_cmtx_append(char **mtx, char *new_element);
+void	ft_cmtx_unshift(char **old_mtx, char *new_element);
+void	ft_cmtx_reverse(char **old_mtx);
+void	ft_cmtx_fill(char **mtx, char *value);
+int		ft_cmtx_includes(char **mtx, char *val);
+void	ft_cmtx_del_at(char **mtx, int id);
 
 #endif

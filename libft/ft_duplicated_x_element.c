@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/15 10:26:10 by arctia            #+#    #+#             */
-/*   Updated: 2022/10/17 15:16:55 by vgavioli         ###   ########.fr       */
+/*   Created: 2023/03/22 23:08:13 by vgavioli          #+#    #+#             */
+/*   Updated: 2023/03/23 11:10:20 by vgavioli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	ft_duplicated_s_element(char **mat)
 	}
 	return (0);
 }
-
 
 int	ft_duplicated_i_element(int	*array)
 {
