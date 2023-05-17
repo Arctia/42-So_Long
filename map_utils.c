@@ -56,5 +56,6 @@ void	check_row(char *line, t_map *field, t_err *map_err, int last)
 	field->exit += count_char(line, 'E');
 	field->collect += count_char(line, 'C');
 	field->enemies += count_char(line, 'S');
+	field->boxes += count_char(line, 'B');
 	set_errors(line, field, map_err, last);
 }

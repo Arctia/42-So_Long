@@ -36,7 +36,7 @@ void	set_errors(char *line, t_map *field, t_err *map_err, int last)
 		map_err->inv_bord = 1;
 	while (line && *line)
 	{
-		if (!ft_strchr("01CEPGS\n", *line))
+		if (!ft_strchr("01CEPGSB\n", *line))
 			map_err->inv_char = 1;
 		line++;
 	}

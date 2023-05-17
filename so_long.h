@@ -62,6 +62,7 @@ typedef struct s_map
 	int		collect;
 	int		enemies;
 	int		player;
+	int		boxes;
 	int		exit;
 }				t_map;
 
@@ -86,6 +87,7 @@ typedef struct s_img
 	void	*wall;
 	void	*exit[2];
 	void	*void_;
+	void	*box;
 	int		w;
 	int		h;
 	int		wisp_cf;
