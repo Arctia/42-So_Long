@@ -6,7 +6,7 @@
 /*   By: arctia <arctia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:50:42 by vgavioli          #+#    #+#             */
-/*   Updated: 2024/06/11 18:59:51 by arctia           ###   ########.fr       */
+/*   Updated: 2024/06/11 19:36:00 by arctia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	free_images(t_img *i)
 {
-	free(i->wall.addr);
 	// mlx_destroy_image(i->mlx, i->wall);
 	// mlx_destroy_image(i->mlx, i->ground);
 	// mlx_destroy_image(i->mlx, i->hero);
@@ -51,6 +50,5 @@ void	main_free(t_gm *gm)
 	free_hero(&gm->hero, gm);
 	mlx_destroy_window(gm->window->mlx_ptr, gm->window->win_ptr);
 	free(gm->window);
-	free(gm->mlx_win);
 	ft_free_cmatrix(gm->map);
 }

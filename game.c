@@ -6,7 +6,7 @@
 /*   By: arctia <arctia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:30:32 by vgavioli          #+#    #+#             */
-/*   Updated: 2024/06/11 18:51:06 by arctia           ###   ########.fr       */
+/*   Updated: 2024/06/11 19:36:08 by arctia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	game_init(char **map, t_map *field)
 	game.mlx_win = game.window->win_ptr;
 	game.mlx = game.window->mlx_ptr;
 	init_game_struct(&game);
-	pfn("MY_OS: %d", MY_OS);
+	// pfn("MY_OS: %d", MY_OS);
 	if (MY_OS == 1)
 	{
 		mlx_hook(game.window->win_ptr, KeyPress, KeyPressMask, linux_key_hook, &game);
