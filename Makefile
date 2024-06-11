@@ -4,7 +4,7 @@
 NAME = so_long
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror 
+FLAGS = #-Wall -Wextra -Werror 
 
 ################################################################################
 # - Taking all *.c and *.h that are needed to compile actual source (not libs)
@@ -16,13 +16,13 @@ INCS = so_long.h
 
 SRCS = free_memory.c game.c game_draw.c key_bindings.c \
 map_draw.c map_errors.c map_field.c map_utils.c player.c \
-player_draw.c so_long.c utils_000.c box.c
+player_draw.c so_long.c utils_000.c box.c img_draw.c
 
 OS := $(shell uname)
 
 ifeq ($(OS), Linux)
 	MY_OS = 1
-	FMLX = -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -lXext -lX11 -lm -lbsd
+	FMLX = -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -lXext -lX11 -lm -lbsd -lXrender -lX11 -lXi -lXinerama -lXft -lXext -lsupc++ -lfontconfig -lXrender
 else
 	MY_OS = 0
 	FMLX = -lmlx -framework OpenGL -framework AppKit

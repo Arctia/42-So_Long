@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arctia <arctia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 17:44:48 by vgavioli          #+#    #+#             */
-/*   Updated: 2023/05/17 10:55:12 by vgavioli         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:41:21 by arctia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,37 @@ typedef struct s_err
 	int		inv_bord;
 }				t_err;
 
+typedef struct s_window
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+	int		height;
+	int		width;
+}				t_window;
+
+typedef struct s_image
+{
+	t_window	*win;
+	void		*img_ptr;
+	char		*addr;
+	int			h;
+	int			w;
+	int			bpp;
+	int			endian;
+	int			line_len;
+}				t_image;
+
 typedef struct s_img
 {
 	void	*mlx;
-	void	*ground;
-	void	*wisp[4];
-	void	*hero;
-	void	*coll[3];
-	void	*wall;
-	void	*exit[2];
-	void	*void_;
-	void	*box;
+	t_image	ground;
+	t_image	wisp[4];
+	t_image	hero;
+	t_image	coll[3];
+	t_image	wall;
+	t_image	exit[2];
+	t_image	void_;
+	t_image	box;
 	int		w;
 	int		h;
 	int		wisp_cf;
@@ -99,9 +119,9 @@ typedef struct s_img
 
 typedef struct s_hero
 {
-	void	*idle;
-	void	*right[5];
-	void	*left[5];
+	t_image	idle;
+	t_image	right[5];
+	t_image	left[5];
 	char	direction;
 	char	pre_dir;
 	int		reach_x;
@@ -116,6 +136,8 @@ typedef struct s_hero
 typedef struct s_gm
 {
 	char			**map;
+	t_window		*window;
+	t_image			bg;
 	void			*mlx_win;
 	void			*mlx;
 	int				p_pos[2];
@@ -157,17 +179,17 @@ char	*map_generation(int fd, t_map *field, char *map, t_err *map_err);
 void	new_field_err(t_map *field, t_err *merr);
 
 //map_draw.c
-void	draw_image(t_gm gm, int pos[5], void *img);
+void	draw_image(t_gm gm, int pos[5], t_image img);
 void	draw_all(t_gm *gm, int d[5], char id);
 void	init_game_struct(t_gm *g);
 void	draw_game_map(t_gm *gm);
-void	init_images(t_img *i);
+void	init_images(t_img *i, t_window win);
 
 //player_draw.c
 void	animate_movement(t_gm *gm, t_hero *h);
 void	set_movement(t_gm *gm, t_hero *h);
 void	refresh_hero(t_gm *gm, t_hero *h);
-void	init_hero(t_hero *i, t_gm *g);
+void	init_hero(t_hero *i, t_window win);
 
 //player.c
 void	player_move(t_gm *gm, char dir, int rec);
@@ -179,6 +201,7 @@ int		linux_key_hook(int key, t_gm *gm);
 int		key_hook(int key, t_gm *gm);
 
 //game_draw.c
+void	draw_black_background(t_gm g);
 void	draw_rectangle(int sx, int sy, t_gm g);
 void	draw_moves(t_gm gm);
 void	draw_death(t_gm gm);
@@ -194,5 +217,12 @@ void	main_free(t_gm *gm);
 int		is_box_near_obstacle(t_gm *gm, int x, int y, char dir);
 void	move_box(t_gm *gm, int x, int y, char dir);
 int		is_not_obstacle(char obj);
+
+t_image		new_background_img(t_window *window, int width, int height);
+t_window	*new_window(int height, int width, char *str);
+t_image		*new_image(t_window *win, int height, int width);
+t_image		new_file_img(char * path, t_window window);
+void		put_pixel_img(t_image img, int x, int y, int color);
+void	put_img_to_img(t_image dst, t_image src, int x, int y);
 
 #endif

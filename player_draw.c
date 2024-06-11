@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   player_draw.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arctia <arctia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 09:32:05 by vgavioli          #+#    #+#             */
-/*   Updated: 2022/06/23 13:14:20 by vgavioli         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:40:56 by arctia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	init_hero(t_hero *i, t_gm *g)
+void	init_hero(t_hero *i, t_window win)
 {
 	int	w;
 	int	h;
 
 	w = SZ;
 	h = SZ;
-	i->right[0] = mlx_xpm_file_to_image(g->mlx, "res/move_r0.xpm", &w, &h);
-	i->right[1] = mlx_xpm_file_to_image(g->mlx, "res/move_r1.xpm", &w, &h);
-	i->right[2] = mlx_xpm_file_to_image(g->mlx, "res/move_r2.xpm", &w, &h);
-	i->right[3] = mlx_xpm_file_to_image(g->mlx, "res/move_r3.xpm", &w, &h);
-	i->right[4] = mlx_xpm_file_to_image(g->mlx, "res/move_r4.xpm", &w, &h);
-	i->left[0] = mlx_xpm_file_to_image(g->mlx, "res/move_l0.xpm", &w, &h);
-	i->left[1] = mlx_xpm_file_to_image(g->mlx, "res/move_l1.xpm", &w, &h);
-	i->left[2] = mlx_xpm_file_to_image(g->mlx, "res/move_l2.xpm", &w, &h);
-	i->left[3] = mlx_xpm_file_to_image(g->mlx, "res/move_l3.xpm", &w, &h);
-	i->left[4] = mlx_xpm_file_to_image(g->mlx, "res/move_l4.xpm", &w, &h);
-	i->idle = mlx_xpm_file_to_image(g->mlx, "res/standby.xpm", &w, &h);
+	i->right[0] = new_file_img("res/move_r0.xpm", win);
+	i->right[1] = new_file_img("res/move_r1.xpm", win);
+	i->right[2] = new_file_img("res/move_r2.xpm", win);
+	i->right[3] = new_file_img("res/move_r3.xpm", win);
+	i->right[4] = new_file_img("res/move_r4.xpm", win);
+	i->left[0] = new_file_img("res/move_l0.xpm", win);
+	i->left[1] = new_file_img("res/move_l1.xpm", win);
+	i->left[2] = new_file_img("res/move_l2.xpm", win);
+	i->left[3] = new_file_img("res/move_l3.xpm", win);
+	i->left[4] = new_file_img("res/move_l4.xpm", win);
+	i->idle = new_file_img("res/standby.xpm", win);
 	i->direction = 'n';
 	i->pre_dir = 'r';
 	i->reach_x = 0;
@@ -88,7 +88,7 @@ void	set_movement(t_gm *gm, t_hero *h)
 
 void	animate_movement(t_gm *gm, t_hero *h)
 {
-	void	*img;
+	t_image	img;
 
 	if (h->direction == 'r')
 		img = h->right[h->frame];
@@ -97,7 +97,8 @@ void	animate_movement(t_gm *gm, t_hero *h)
 	else
 		img = h->idle;
 	if (!gm->death && !gm->won)
-		mlx_put_image_to_window(gm->mlx, gm->mlx_win, img, h->posx, h->posy);
+		put_img_to_img(gm->bg, img, h->posx, h->posy);
+		// mlx_put_image_to_window(gm->mlx, gm->mlx_win, img, h->posx, h->posy);
 }
 
 void	refresh_hero(t_gm *gm, t_hero *h)

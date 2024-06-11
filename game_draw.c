@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   game_draw.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arctia <arctia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:11:16 by vgavioli          #+#    #+#             */
-/*   Updated: 2022/06/26 19:16:01 by vgavioli         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:50:04 by arctia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	draw_black_background(t_gm g)
+{
+	int x = 0; int y = 0;
+	int px = 0;	int py = 0;
+
+	while (y < g.field.rows + 2)
+	{
+		while (x < g.field.cols + 2)
+		{
+			put_img_to_img(g.bg, g.images.void_, px, py);
+			px = SZ * ++x;
+		}
+		py = SZ * ++y;
+		px = 0; x = 0;
+	}
+}
 
 void	draw_rectangle(int sx, int sy, t_gm g)
 {
@@ -27,7 +44,7 @@ void	draw_rectangle(int sx, int sy, t_gm g)
 	{
 		while (xi < sx)
 		{
-			mlx_put_image_to_window(g.mlx, g.mlx_win, g.images.void_, x, y);
+			put_img_to_img(g.bg, g.images.void_, x, y);
 			x = SZ * ++xi;
 		}
 		y = SZ * ++yi;

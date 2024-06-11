@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arctia <arctia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:30:32 by vgavioli          #+#    #+#             */
-/*   Updated: 2023/05/17 10:46:33 by vgavioli         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:51:06 by arctia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,10 @@ int	update(t_gm *gm)
 		draw_game_map(gm);
 		draw_moves(*gm);
 	}
-	if (gm->death && !gm->deathd)
-	{
-		gm->deathd = 1;
+	if (gm->death)
 		draw_death(*gm);
-	}
-	if (gm->won && !gm->wond)
-	{
-		gm->wond = 1;
+	if (gm->won)
 		draw_won(*gm);
-	}
 	return (0);
 }
 
@@ -73,22 +67,24 @@ void	game_init(char **map, t_map *field)
 	h = field->rows + 2;
 	game.field = *field;
 	game.map = map;
-	game.mlx = mlx_init();
-	game.mlx_win = mlx_new_window(game.mlx, SZ * w, SZ * h, "Last Slime");
+	game.window = new_window(SZ * h, SZ * w, "Last Slime");
+	game.bg = new_background_img((game.window), SZ * w, SZ * h);
+	game.mlx_win = game.window->win_ptr;
+	game.mlx = game.window->mlx_ptr;
 	init_game_struct(&game);
-	//pfn("MY_OS: %d", MY_OS);
+	pfn("MY_OS: %d", MY_OS);
 	if (MY_OS == 1)
 	{
-		mlx_hook(game.mlx_win, KeyPress, KeyPressMask, linux_key_hook, &game);
-		mlx_hook(game.mlx_win, 17L, 0, exit_game, &game);
+		mlx_hook(game.window->win_ptr, KeyPress, KeyPressMask, linux_key_hook, &game);
+		mlx_hook(game.window->win_ptr, 17L, 0, exit_game, &game);
 	}
 	else
 	{
-		mlx_key_hook(game.mlx_win, key_hook, &game);
-		mlx_hook(game.mlx_win, 17, 0, exit_game, &game);
+		mlx_key_hook(game.window->win_ptr, key_hook, &game);
+		mlx_hook(game.window->win_ptr, 17, 0, exit_game, &game);
 	}
-	mlx_loop_hook(game.mlx, update, &game);
+	mlx_loop_hook(game.window->mlx_ptr, update, &game);
 	draw_game_map(&game);
-	mlx_do_key_autorepeaton(game.mlx);
-	mlx_loop(game.mlx);
+	mlx_do_key_autorepeaton(game.window->mlx_ptr);
+	mlx_loop(game.window->mlx_ptr);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_bindings.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arctia <arctia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 16:44:35 by vgavioli          #+#    #+#             */
-/*   Updated: 2023/05/16 23:01:54 by vgavioli         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:00:47 by arctia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 int	key_hook(int key, t_gm *gm)
 {
-	
 	if (!gm->death && !gm->won && !gm->hero.moving)
 	{
 		if (key == KEY_W || key == ARR_UP)

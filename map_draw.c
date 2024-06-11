@@ -3,40 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   map_draw.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgavioli <vgavioli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arctia <arctia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:54:42 by vgavioli          #+#    #+#             */
-/*   Updated: 2022/06/26 19:06:56 by vgavioli         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:50:20 by arctia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	draw_image(t_gm gm, int pos[5], void *img)
+void	draw_image(t_gm gm, int pos[5], t_image img)
 {
 	pos[2] = (pos[0] + OFFSET) * SZ;
 	pos[3] = (pos[1] + OFFSET) * SZ;
-	mlx_put_image_to_window(gm.mlx, gm.mlx_win, img, pos[2], pos[3]);
+	put_img_to_img(gm.bg, img, pos[2], pos[3]);
+	// mlx_put_image_to_window(gm.mlx, gm.mlx_win, img, pos[2], pos[3]);
 }
 
-void	init_images(t_img *i)
+void	init_images(t_img *i, t_window win)
 {
 	i->w = SZ;
 	i->h = SZ;
-	i->wall = mlx_xpm_file_to_image(i->mlx, "res/wall1.xpm", &i->w, &i->h);
-	i->box = mlx_xpm_file_to_image(i->mlx, "res/box.xpm", &i->w, &i->h),
-	i->hero = mlx_xpm_file_to_image(i->mlx, "res/hero.xpm", &i->w, &i->h);
-	i->void_ = mlx_xpm_file_to_image(i->mlx, "res/void.xpm", &i->w, &i->h);
-	i->ground = mlx_xpm_file_to_image(i->mlx, "res/ground1.xpm", &i->w, &i->h);
-	i->coll[0] = mlx_xpm_file_to_image(i->mlx, "res/coll_0.xpm", &i->w, &i->h);
-	i->coll[1] = mlx_xpm_file_to_image(i->mlx, "res/coll_1.xpm", &i->w, &i->h);
-	i->coll[2] = mlx_xpm_file_to_image(i->mlx, "res/coll_2.xpm", &i->w, &i->h);
-	i->wisp[0] = mlx_xpm_file_to_image(i->mlx, "res/wisp0.xpm", &i->w, &i->h);
-	i->wisp[1] = mlx_xpm_file_to_image(i->mlx, "res/wisp1.xpm", &i->w, &i->h);
-	i->wisp[2] = mlx_xpm_file_to_image(i->mlx, "res/wisp2.xpm", &i->w, &i->h);
-	i->wisp[3] = mlx_xpm_file_to_image(i->mlx, "res/wisp3.xpm", &i->w, &i->h);
-	i->exit[0] = mlx_xpm_file_to_image(i->mlx, "res/exit2.xpm", &i->w, &i->h);
-	i->exit[1] = mlx_xpm_file_to_image(i->mlx, "res/exit1.xpm", &i->w, &i->h);
+	i->box = new_file_img("res/box.xpm", win);
+	i->hero = new_file_img("res/hero.xpm", win);
+	i->void_ = new_file_img("res/void.xpm", win);
+	i->ground = new_file_img("res/ground1.xpm", win);
+	i->coll[0] = new_file_img("res/coll_0.xpm", win);
+	i->coll[1] = new_file_img("res/coll_1.xpm", win);
+	i->coll[2] = new_file_img("res/coll_2.xpm", win);
+	i->wisp[0] = new_file_img("res/wisp0.xpm", win);
+	i->wisp[1] = new_file_img("res/wisp1.xpm", win);
+	i->wisp[2] = new_file_img("res/wisp2.xpm", win);
+	i->wisp[3] = new_file_img("res/wisp3.xpm", win);
+	i->exit[0] = new_file_img("res/exit2.xpm", win);
+	i->exit[1] = new_file_img("res/exit1.xpm", win);
+	i->wall = new_file_img("res/wall1.xpm", win);
 	i->wisp_cf = 0;
 	i->coll_cf = 0;
 }
@@ -55,8 +56,8 @@ void	init_game_struct(t_gm *gm)
 	gm->p_pos[0] = -1;
 	gm->p_pos[1] = -1;
 	gm->images.mlx = gm->mlx;
-	init_images(&(gm->images));
-	init_hero(&gm->hero, gm);
+	init_images(&gm->images, *gm->window);
+	init_hero(&gm->hero, *gm->window);
 }
 
 //draw all elements
@@ -90,6 +91,7 @@ void	draw_game_map(t_gm *gm)
 
 	d[1] = 0;
 	d[4] = 0;
+	draw_black_background(*gm);
 	while (d[1] < gm->field.rows)
 	{
 		d[0] = 0;
@@ -102,5 +104,7 @@ void	draw_game_map(t_gm *gm)
 		d[1]++;
 	}
 	animate_movement(gm, &gm->hero);
+	mlx_put_image_to_window(gm->mlx, gm->mlx_win, gm->bg.img_ptr, 0, 0);
+	// mlx_put_image_to_window (base_image.win.mlx_ptr, , base_image.img_ptr, 0, 0);
 	gm->refresh = 0;
 }
