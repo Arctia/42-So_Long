@@ -4,7 +4,7 @@ Develop a simple 2D game written in C utilizing MiniLibX.
 
 ```You must create a basic 2D game in which a dolphin escapes Earth after eating some fish. Instead of a dolphin, fish, and the Earth, you can use any character, any collectible and any place you want.```
 
-My version will include standing enemies, and pushable boxes.
+My version will include standing animated enemies, animated player and pushable boxes.
 
 
 ## Usable external functions 
@@ -15,12 +15,13 @@ My version will include standing enemies, and pushable boxes.
 * your coded printf
 ## Screenshot
 
+all sprites are drawn by me
 ![Last Slime](https://i.imgur.com/4ct15B7.png)
 
 
 ## How to Play
 
-Before all you'll need some dependency, install them:
+First of all you'll need some dependency, install them:
 
 ```bash
 sudo apt update && sudo apt install xorg libxext-dev zlib1g-dev libbsd-dev
