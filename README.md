@@ -19,7 +19,7 @@ all sprites are drawn by me
 ![Last Slime](https://i.imgur.com/4ct15B7.png)
 
 
-## How to Play
+## How to Play on Debian distributions
 
 First of all you'll need some dependency, install them:
 
