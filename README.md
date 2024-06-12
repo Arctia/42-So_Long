@@ -39,4 +39,4 @@ to start the game use the following syntax
 ./so_long <map_file.ber>
 ```
 
-You'll find different levels in the `./maps` folder
+You'll find different levels in the `./maps` folder, currently `level1.ber` to `level6.ber`
